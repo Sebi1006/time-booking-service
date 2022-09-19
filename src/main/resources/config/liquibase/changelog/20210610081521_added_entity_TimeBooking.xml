@@ -20,6 +20,9 @@
             <column name="personal_number" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="working_hours" type="double">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="time_booking" columnName="booking" columnDataType="${datetimeType}"/>
@@ -37,12 +40,13 @@
     -->
     <changeSet id="20210610081521-1-data" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/fake-data/time_booking.csv"
-                  separator=";"
-                  tableName="time_booking">
+            file="config/liquibase/fake-data/time_booking.csv"
+            separator=";"
+            tableName="time_booking">
             <column name="id" type="numeric"/>
             <column name="booking" type="${datetimeType}"/>
             <column name="personal_number" type="string"/>
+            <column name="working_hours" type="double"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

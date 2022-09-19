@@ -5,8 +5,10 @@ import com.fantasy.tbs.domain.TimeBooking;
 import com.fantasy.tbs.repository.TimeBookingRepository;
 import com.fantasy.tbs.service.TimeBookingService;
 import com.fantasy.tbs.service.mapper.TimeBookMapper;
+
 import java.util.List;
 import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -49,6 +51,9 @@ public class TimeBookingServiceImpl implements TimeBookingService {
                     if (timeBooking.getPersonalNumber() != null) {
                         existingTimeBooking.setPersonalNumber(timeBooking.getPersonalNumber());
                     }
+                    if (timeBooking.getWorkingHours() > 0.0) {
+                        existingTimeBooking.setWorkingHours(timeBooking.getWorkingHours());
+                    }
 
                     return existingTimeBooking;
                 }
@@ -79,5 +84,20 @@ public class TimeBookingServiceImpl implements TimeBookingService {
     @Override
     public void bookTime(TimeBookDTO timeBookDTO) {
         timeBookingRepository.save(timeBookMapper.toTimeBooking(timeBookDTO));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public double retrieveWorkingTime(String personalNumber) {
+        log.debug("Request to get the working time of : {}", personalNumber);
+        List<Double> workingHours = timeBookingRepository.findByPersonalNumber(personalNumber);
+
+        double workingTime = 0.0;
+
+        for (Double workingHour : workingHours) {
+            workingTime += workingHour;
+        }
+
+        return workingTime;
     }
 }

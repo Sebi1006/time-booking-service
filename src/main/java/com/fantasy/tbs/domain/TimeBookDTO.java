@@ -6,6 +6,7 @@ public class TimeBookDTO {
 
     private ZonedDateTime timeStamp;
     private String personalNumber;
+    private double workingHours;
 
     public ZonedDateTime getTimeStamp() {
         return timeStamp;
@@ -21,5 +22,13 @@ public class TimeBookDTO {
 
     public void setPersonalNumber(String personalNumber) {
         this.personalNumber = personalNumber;
+    }
+
+    public double getWorkingHours() {
+        return workingHours;
+    }
+
+    public void setWorkingHours(double workingHours) {
+        this.workingHours = workingHours;
     }
 }

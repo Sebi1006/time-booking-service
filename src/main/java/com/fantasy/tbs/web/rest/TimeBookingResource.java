@@ -4,11 +4,13 @@ import com.fantasy.tbs.domain.TimeBooking;
 import com.fantasy.tbs.repository.TimeBookingRepository;
 import com.fantasy.tbs.service.TimeBookingService;
 import com.fantasy.tbs.web.rest.errors.BadRequestAlertException;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -63,7 +65,7 @@ public class TimeBookingResource {
     /**
      * {@code PUT  /time-bookings/:id} : Updates an existing timeBooking.
      *
-     * @param id the id of the timeBooking to save.
+     * @param id          the id of the timeBooking to save.
      * @param timeBooking the timeBooking to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated timeBooking,
      * or with status {@code 400 (Bad Request)} if the timeBooking is not valid,
@@ -97,7 +99,7 @@ public class TimeBookingResource {
     /**
      * {@code PATCH  /time-bookings/:id} : Partial updates given fields of an existing timeBooking, field will ignore if it is null
      *
-     * @param id the id of the timeBooking to save.
+     * @param id          the id of the timeBooking to save.
      * @param timeBooking the timeBooking to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated timeBooking,
      * or with status {@code 400 (Bad Request)} if the timeBooking is not valid,
@@ -168,5 +170,18 @@ public class TimeBookingResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    /**
+     * {@code GET  /working-time/:personalNumber} : get the working time.
+     *
+     * @param personalNumber the personal number.
+     * @return the working time.
+     */
+    @GetMapping("/working-time/{personalNumber}")
+    public double getWorkingTime(@PathVariable String personalNumber) {
+        // TODO: implement feature not only for total working hours but with certain time period to choose from (start and end date)
+        log.debug("REST request to get the working time of : {}", personalNumber);
+        return timeBookingService.retrieveWorkingTime(personalNumber);
     }
 }

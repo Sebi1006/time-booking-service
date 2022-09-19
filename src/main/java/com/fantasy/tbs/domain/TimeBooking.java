@@ -3,6 +3,7 @@ package com.fantasy.tbs.domain;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import javax.persistence.*;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -25,6 +26,9 @@ public class TimeBooking implements Serializable {
 
     @Column(name = "personal_number")
     private String personalNumber;
+
+    @Column(name = "working_hours")
+    private double workingHours;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -66,6 +70,19 @@ public class TimeBooking implements Serializable {
         this.personalNumber = personalNumber;
     }
 
+    public double getWorkingHours() {
+        return this.workingHours;
+    }
+
+    public TimeBooking workingHours(double workingHours) {
+        this.workingHours = workingHours;
+        return this;
+    }
+
+    public void setWorkingHours(double workingHours) {
+        this.workingHours = workingHours;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -92,6 +109,7 @@ public class TimeBooking implements Serializable {
             "id=" + getId() +
             ", booking='" + getBooking() + "'" +
             ", personalNumber='" + getPersonalNumber() + "'" +
+            ", workingHours='" + getWorkingHours() + "'" +
             "}";
     }
 }

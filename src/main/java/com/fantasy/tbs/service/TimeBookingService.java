@@ -2,6 +2,7 @@ package com.fantasy.tbs.service;
 
 import com.fantasy.tbs.domain.TimeBookDTO;
 import com.fantasy.tbs.domain.TimeBooking;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -48,9 +49,17 @@ public interface TimeBookingService {
     void delete(Long id);
 
     /**
-     * Saves the new booking time to the database
+     * Save the new booking time to the database.
      *
      * @param timeBookDTO
      */
     void bookTime(TimeBookDTO timeBookDTO);
+
+    /**
+     * Get the working time of a certain employee.
+     *
+     * @param personalNumber the personal number.
+     * @return the working time.
+     */
+    double retrieveWorkingTime(String personalNumber);
 }
